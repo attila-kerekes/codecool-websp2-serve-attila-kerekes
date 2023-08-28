@@ -43,3 +43,38 @@ app.get('/users/:userId', (req, res) => {
 
 
 
+//Response
+
+
+
+
+app.get('/math/:op', (req, res) => { //The first line sets up the GET route for /math/:op, where :op is a placeholder for the operation name. 
+
+    const x = parseFloat(req.query.x); //The next (parseFloat) lines extract the x and y query parameters from the request using req.query
+    const y = parseFloat(req.query.y);
+  
+    const {op} = req.params; //The next line extracts the op parameter from the request using req.params
+  
+    const result = op === "add" ? x + y : op === "subtract" ? x - y : op === 
+    "multiply" ? x * y : op === "divide" ? x / y : false; //The next line calculates the result based on the provided operation name.
+  
+/*     res.send(result ? `The result is ${result}` : `Unrecognizable operation name`);
+  
+  }); */
+
+//Convert the response to a JSON object
+
+
+//We are getting closer to create a proper Rest API endpoint, so let's convert the response to a JSON object.
+
+  const resultObject = {
+    numbers: {
+        x: x,
+        y: y
+    }, 
+    operation: op,
+    result: result ? result : `Unrecognizable operation name`
+  }
+
+res.send(resultObject);
+});
